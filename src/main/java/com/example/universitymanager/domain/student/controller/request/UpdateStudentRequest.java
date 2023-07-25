@@ -1,5 +1,6 @@
 package com.example.universitymanager.domain.student.controller.request;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.Max;
@@ -8,9 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@Builder
 public class UpdateStudentRequest {
 
-    @NotNull(message = "Student id cannot be null")
+    @NotNull(message = "Student id must not be null")
     @Min(value = 1, message = "Student id should not be less than 1")
     private Long id;
     @NotBlank(message = "First name cannot be empty")

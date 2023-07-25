@@ -13,6 +13,9 @@ public class StudentService {
     private final StudentRepository studentRepo;
 
     public Student create(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student must not be null");
+        }
         if (student.getId() != null) {
             throw new IllegalArgumentException("Student id should be null");
         }
@@ -28,14 +31,17 @@ public class StudentService {
         return studentRepo.findAll();
     }
 
-    public Student update(Student updatedStudent) {
+    public void update(Student updatedStudent) {
+        if (updatedStudent == null) {
+            throw new IllegalArgumentException("Student must not be null");
+        }
         if (updatedStudent.getId() == null) {
             throw new IllegalArgumentException("Student id must not be null");
         }
         if (!studentRepo.existsById(updatedStudent.getId())) {
             throw new EntityNotFoundException("Update failed. Student with id " + updatedStudent.getId() + " not found");
         }
-        return studentRepo.save(updatedStudent);
+        studentRepo.save(updatedStudent);
     }
 
     public void delete(Long id) {

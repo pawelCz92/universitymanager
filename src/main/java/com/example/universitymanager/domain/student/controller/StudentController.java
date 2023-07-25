@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public StudentDto createStudent(@RequestBody CreateStudentRequest createStudentRequest) {
+    public StudentDto createStudent(@RequestBody @Valid CreateStudentRequest createStudentRequest) {
         Student studentToCreate = Student.builder()
                 .firstName(createStudentRequest.getFirstName())
                 .lastName(createStudentRequest.getLastName())
@@ -53,7 +54,7 @@ public class StudentController {
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void updateStudentById(@RequestBody UpdateStudentRequest updateStudentRequest) {
+    public void updateStudentById(@RequestBody @Valid UpdateStudentRequest updateStudentRequest) {
         Student studentToUpdate = Student.builder()
                 .id(updateStudentRequest.getId())
                 .firstName(updateStudentRequest.getFirstName())
