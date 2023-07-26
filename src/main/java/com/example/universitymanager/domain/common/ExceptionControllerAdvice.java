@@ -1,6 +1,7 @@
 package com.example.universitymanager.domain.common;
 
 import com.example.universitymanager.domain.common.exceptions.BaseException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -47,6 +48,16 @@ public class ExceptionControllerAdvice {
         return createExceptionResponseResponseEntity(exceptionResponse);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ExceptionResponse> handle(DataIntegrityViolationException exception, HttpServletRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .httpStatus(HttpStatus.CONFLICT)
+                .message("Data integrity violation. Request rejected")
+                .request(request)
+                .build();
+        exception.printStackTrace();
+        return createExceptionResponseResponseEntity(exceptionResponse);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handle(Exception exception, HttpServletRequest request) {
