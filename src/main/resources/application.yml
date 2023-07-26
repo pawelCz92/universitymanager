@@ -11,6 +11,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   main:
     allow-bean-definition-overriding: true
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
   port: 8080
